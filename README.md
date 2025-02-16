@@ -1,81 +1,62 @@
-# Turborepo starter
+# Deskripsi
 
-This is an official starter Turborepo.
+Projek ini merupakan contoh penggunaan monorepo dengan dua aplikasi, yaitu web dan docs, yang di-deploy menggunakan Docker dan Docker Compose. Setiap aplikasi memiliki Dockerfile tersendiri dan dijalankan sebagai layanan terpisah dalam Docker Compose.
 
-## Using this example
+## Struktur Direktori
+monorepo-test/ ├── apps/ │ ├── docs/ │ │ ├── _sidebar.md │ │ ├── index.html │ │ ├── Dockerfile │ │ └── ... │ └── web/ │ ├── public/ │ ├── src/ │ ├── Dockerfile │ └── ... ├── docker-compose.yml ├── package.json └── .next/
+## Aplikasi
 
-Run the following command:
+### Deskripsi Struktur
 
-```sh
-npx create-turbo@latest
-```
+1. **Root Directory (monorepo-test/)**
 
-## What's inside?
+    Anda berada di dalam direktori root yang berisi semua direktori dan file proyek utama. Berikut adalah beberapa file dan direktori penting yang ada di dalamnya:
 
-This Turborepo includes the following packages/apps:
+    - **apps/**: Direktori ini berisi semua aplikasi atau modul yang ada di dalam proyek Anda. Misalnya, `web/` dan `docs/` adalah dua direktori yang akan dijelaskan di bawah ini.
+    - **package.json**: File ini berisi informasi tentang modul dan dependencies yang diperlukan oleh proyek Anda.
+    - **docker-compose.yml**: File ini berisi konfigurasi untuk Docker Compose, termasuk informasi tentang layanan yang ditentukan dan bagaimana mereka dijalankan.
 
-### Apps and Packages
+2. **apps/** dan **subdirectories**
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+    - **apps/docs/**: Direktori ini berisi semua file yang diperlukan untuk aplikasi dokumen Anda. Selain itu, juga ada Dockerfile di dalam direktori ini.
+    - **apps/web/**: Direktori ini berisi semua file yang diperlukan untuk aplikasi web Anda. Seperti yang telah disebutkan sebelumnya, juga ada Dockerfile di dalam direktori ini.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Letak Dockerfile dan docker-compose.yml
 
-### Utilities
+- **Dockerfile** ada di dalam direktori `apps/docs/` dan `apps/web/`.
+- **docker-compose.yml** ada di direktori root `monorepo-test/`.
 
-This Turborepo has some additional tools already setup for you:
+## Cara Menjalankan Proyek 
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Langkah 1: Install Dependencies
 
-### Build
+1. Clone the project to your local machine using a tool like `git clone`.
+2. Install pnpm and turbo (if not already installed) by running:
+    ```bash
+    npm install -g pnpm@latest && npm install -g turbo@latest
+    ```
+3. Install all project dependencies by running:
+    ```bash
+    pnpm install
+    ```
 
-To build all apps and packages, run the following command:
+### Langkah 2: Build and Run Docker containers
 
-```
-cd my-turborepo
-pnpm build
-```
+- Build the Docker image for all services defined in `docker-compose.yml` by running:
+    ```bash
+    docker-compose build
+    ```
 
-### Develop
+- Run the containers by executing:
+    ```bash
+    docker-compose up
+    ```
 
-To develop all apps and packages, run the following command:
+### Mengakses Aplikasi
 
-```
-cd my-turborepo
-pnpm dev
-```
+- Akses aplikasi web melalui browser: **[http://localhost:3000](http://localhost:3000)**
+- Akses aplikasi docs melalui browser: **[http://localhost:3001](http://localhost:3001)**
 
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+**Nota:** Anda juga dapat menjalankan layanan Docker Compose untuk layanan tertentu saja. Misalnya jika hanya ingin menjalankan layanan web, gunakan berikut:
+```bash
+docker-compose up web
