@@ -3,8 +3,21 @@
 Projek ini merupakan contoh penggunaan monorepo dengan dua aplikasi, yaitu web dan docs, yang di-deploy menggunakan Docker dan Docker Compose. Setiap aplikasi memiliki Dockerfile tersendiri dan dijalankan sebagai layanan terpisah dalam Docker Compose.
 
 ## Struktur Direktori
-monorepo-test/ ├── apps/ │ ├── docs/ │ │ ├── _sidebar.md │ │ ├── index.html │ │ ├── Dockerfile │ │ └── ... │ └── web/ │ ├── public/ │ ├── src/ │ ├── Dockerfile │ └── ... ├── docker-compose.yml ├── package.json └── .next/
-## Aplikasi
+monorepo-test/
+├── apps/
+│   ├── docs/
+│   │   ├── _sidebar.md
+│   │   ├── index.html
+│   │   ├── Dockerfile
+│   │   └── ... (lainnya)
+│   └── web/
+│       ├── public/
+│       ├── src/
+│       ├── Dockerfile
+│       └── ... (lainnya)
+├── docker-compose.yml (konfigurasi untuk Docker Compose)
+├── package.json (konfigurasi dependencies)
+└── .. (lainnya)
 
 ### Deskripsi Struktur
 
@@ -57,6 +70,6 @@ monorepo-test/ ├── apps/ │ ├── docs/ │ │ ├── _sidebar.md
 - Akses aplikasi web melalui browser: **[http://localhost:3000](http://localhost:3000)**
 - Akses aplikasi docs melalui browser: **[http://localhost:3001](http://localhost:3001)**
 
-**Nota:** Anda juga dapat menjalankan layanan Docker Compose untuk layanan tertentu saja. Misalnya jika hanya ingin menjalankan layanan web, gunakan berikut:
+**Note:** Anda juga dapat menjalankan layanan Docker Compose untuk layanan tertentu saja. Misalnya jika hanya ingin menjalankan layanan web, gunakan berikut:
 ```bash
 docker-compose up web
